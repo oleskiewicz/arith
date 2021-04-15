@@ -1,0 +1,11 @@
+[package]
+name = "arith"
+version = "0.1.0"
+authors = ["Piotr Oleskiewicz"]
+edition = "2018"
+license = "GPL-3.0"
+description = "containers with arithmetics"
+repository = "https://src.oleskiewi.cz/arith"
+documentation = "https://doc.oleskiewi.cz/arith"
+
+[dependencies]
