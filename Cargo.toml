@@ -5,7 +5,7 @@ authors = ["Piotr Oleskiewicz"]
 edition = "2018"
 license = "GPL-3.0"
 description = "containers with arithmetics"
-repository = "https://src.oleskiewi.cz/arith"
-documentation = "https://doc.oleskiewi.cz/arith"
+repository = "https://src.oleskiewi.cz/arith/log.html"
+documentation = "https://doc.oleskiewi.cz/arith/arith"
 
 [dependencies]
