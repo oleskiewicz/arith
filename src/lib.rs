@@ -11,10 +11,13 @@ pub struct ArithMap<'a, V> {
 }
 
 impl<V> fmt::Debug for ArithMap<'_, V>
-where V: fmt::Debug
+where
+    V: fmt::Debug,
 {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        f.debug_map().entries(self.hashmap.iter().map(|(k, v)| (k, v))).finish()
+        f.debug_map()
+            .entries(self.hashmap.iter().map(|(k, v)| (k, v)))
+            .finish()
     }
 }
 
@@ -43,7 +46,8 @@ macro_rules! arithmap {
 }
 
 impl<V> ArithMap<'_, V>
-where V: Copy + Default + PartialEq
+where
+    V: Copy + Default + PartialEq,
 {
     /// ```
     /// # use arith::*;
@@ -67,7 +71,8 @@ where V: Copy + Default + PartialEq
 /// assert_eq!(x + 1, y);
 /// ```
 impl<V> Add<V> for ArithMap<'_, V>
-where V: AddAssign + Copy
+where
+    V: AddAssign + Copy,
 {
     type Output = Self;
     fn add(mut self: Self, other: V) -> Self {
@@ -87,7 +92,8 @@ where V: AddAssign + Copy
 /// assert_eq!(x, y);
 /// ```
 impl<V> AddAssign<V> for ArithMap<'_, V>
-where V: AddAssign + Copy
+where
+    V: AddAssign + Copy,
 {
     fn add_assign(&mut self, other: V) {
         for v in self.hashmap.values_mut() {
@@ -104,7 +110,8 @@ where V: AddAssign + Copy
 /// assert_eq!(x - 1, y);
 /// ```
 impl<V> Sub<V> for ArithMap<'_, V>
-where V: SubAssign + Copy
+where
+    V: SubAssign + Copy,
 {
     type Output = Self;
     fn sub(mut self: Self, other: V) -> Self {
@@ -124,7 +131,8 @@ where V: SubAssign + Copy
 /// assert_eq!(x, y);
 /// ```
 impl<V> SubAssign<V> for ArithMap<'_, V>
-where V: SubAssign + Copy
+where
+    V: SubAssign + Copy,
 {
     fn sub_assign(&mut self, other: V) {
         for v in self.hashmap.values_mut() {
@@ -141,7 +149,8 @@ where V: SubAssign + Copy
 /// assert_eq!(x * 2.0, y);
 /// ```
 impl<V> Mul<V> for ArithMap<'_, V>
-where V: MulAssign + Copy
+where
+    V: MulAssign + Copy,
 {
     type Output = Self;
     fn mul(mut self: Self, other: V) -> Self {
@@ -161,7 +170,8 @@ where V: MulAssign + Copy
 /// assert_eq!(x, y);
 /// ```
 impl<V> MulAssign<V> for ArithMap<'_, V>
-where V: MulAssign + Copy
+where
+    V: MulAssign + Copy,
 {
     fn mul_assign(&mut self, other: V) {
         for v in self.hashmap.values_mut() {
@@ -179,7 +189,8 @@ where V: MulAssign + Copy
 /// assert_eq!(x + y, z);
 /// ```
 impl<V> Add for ArithMap<'_, V>
-where V: Add<Output = V> + AddAssign + Copy + Default
+where
+    V: Add<Output = V> + AddAssign + Copy + Default,
 {
     type Output = Self;
     fn add(self: Self, other: Self) -> Self {
@@ -190,8 +201,7 @@ where V: Add<Output = V> + AddAssign + Copy + Default
         for (k, v2) in other.hashmap.iter() {
             if let Some(v1) = r.hashmap.get_mut(k) {
                 *v1 += *v2;
-            }
-            else {
+            } else {
                 r.hashmap.insert(*k, *v2);
             }
         }
@@ -209,14 +219,14 @@ where V: Add<Output = V> + AddAssign + Copy + Default
 /// assert_eq!(x, z);
 /// ```
 impl<V> AddAssign for ArithMap<'_, V>
-where V: Add<Output = V> + AddAssign + Copy + Default
+where
+    V: Add<Output = V> + AddAssign + Copy + Default,
 {
     fn add_assign(&mut self, other: Self) {
         for (k, v2) in other.hashmap.iter() {
             if let Some(v1) = self.hashmap.get_mut(k) {
                 *v1 += *v2;
-            }
-            else {
+            } else {
                 self.hashmap.insert(*k, *v2);
             }
         }
@@ -232,7 +242,8 @@ where V: Add<Output = V> + AddAssign + Copy + Default
 /// assert_eq!(x - y, z);
 /// ```
 impl<V> Sub for ArithMap<'_, V>
-where V: Sub<Output = V> + SubAssign + Copy + Default
+where
+    V: Sub<Output = V> + SubAssign + Copy + Default,
 {
     type Output = Self;
     fn sub(self: Self, other: Self) -> Self {
@@ -244,8 +255,7 @@ where V: Sub<Output = V> + SubAssign + Copy + Default
         for (k, v2) in other.hashmap.iter() {
             if let Some(v1) = r.hashmap.get_mut(k) {
                 *v1 -= *v2;
-            }
-            else {
+            } else {
                 r.hashmap.insert(*k, zero - *v2);
             }
         }
@@ -263,15 +273,15 @@ where V: Sub<Output = V> + SubAssign + Copy + Default
 /// assert_eq!(x, z);
 /// ```
 impl<V> SubAssign for ArithMap<'_, V>
-where V: Sub<Output = V> + SubAssign + Copy + Default
+where
+    V: Sub<Output = V> + SubAssign + Copy + Default,
 {
     fn sub_assign(&mut self, other: Self) {
         let zero: V = Default::default();
         for (k, v2) in other.hashmap.iter() {
             if let Some(v1) = self.hashmap.get_mut(k) {
                 *v1 -= *v2;
-            }
-            else {
+            } else {
                 self.hashmap.insert(*k, zero - *v2);
             }
         }
