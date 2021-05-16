@@ -1,11 +1,13 @@
 [package]
 name = "arith"
-version = "0.2.1"
+version = "0.2.2"
 authors = ["Piotr Oleskiewicz"]
 edition = "2018"
 license = "GPL-3.0"
 description = "containers with arithmetics"
 repository = "https://src.oleskiewi.cz/arith/log.html"
 documentation = "https://doc.oleskiewi.cz/arith/arith"
+categories = ["data-structures", "mathematics"]
+keywords = ["data-structures", "math"]
 
 [dependencies]
